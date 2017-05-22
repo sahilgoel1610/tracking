@@ -2,10 +2,8 @@ package main
 
 import "fmt"
 import "./lib"
-// import "./lib/aerospike"
 import "./lib/mem_store_factory"
-// import "./lib/memory_store/aerospike"
-
+import "./lib/server"
 
 type Point struct {
 	lat float64
@@ -19,7 +17,10 @@ type Snapshot struct {
 }
 
 
+
 func main() {
+
+	server.Start()
 	fmt.Println("Hello")
 	p := Point {123.123, 12.213}
 	fmt.Println(p.lat)
@@ -34,6 +35,9 @@ func main() {
 	fmt.Println(u1.Friends)
 	memStore := memStoreFactory.Get("redis")
 	// memStore := aerospike.GetAeroClient()
+	fmt.Println(memStore.AddPair("hey", "bye"))
+
+	memStore = memStoreFactory.Get("aerospike")
 	fmt.Println(memStore.AddPair("hey", "bye"))
 
 }
